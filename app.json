@@ -1,0 +1,19 @@
+{
+  "name": "CakeItsEasy",
+  "description": "CakeItsEasy",
+  "repository": "https://github.com/NightFury2/cake-test",
+  "logo": "https://www.cakeiteasy.no/favicon.ico",
+  "keywords": [
+    "react",
+    "isomorphic",
+    "universal",
+    "webpack",
+    "express",
+    "hot reloading",
+    "react-hot-reloader",
+    "redux",
+    "starter",
+    "boilerplate",
+    "babel"
+  ]
+}
