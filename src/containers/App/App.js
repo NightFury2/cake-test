@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 import config from '../../config';
 
 import MenuContent from '../../components/MenuContent/MenuContent';
+import RightMenuComponent from '../../components/RightMenuComponent/RightMenuComponent';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -83,8 +84,9 @@ export default class App extends React.Component {
           <div ref="appScroll">
             <div className={'row ' + styles.app}>
               <AppBar
-                 title={logoBlack ? <div style={{maxWidth: '190px', marginTop: '10px'}}><img src={logoBlack} style={{display: 'block', maxWidth: '100%', height: 'auto'}}/></div> : 'Загрузка...'}
-                 iconElementLeft={<IconButton className={'hide-on-med-and-up'} onTouchTap={this.menuOpen}><NavigationMenu/></IconButton>}
+                title={<div style={{maxWidth: '190px', marginTop: '10px'}}><img src={logoBlack} style={{display: 'block', maxWidth: '100%', height: 'auto'}}/></div>}
+                iconElementLeft={<IconButton className={'hide-on-large-only'} onTouchTap={this.menuOpen}><NavigationMenu/></IconButton>}
+                iconElementRight={<RightMenuComponent/>}
               />
               <Drawer
                 width={340}
