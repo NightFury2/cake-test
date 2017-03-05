@@ -14,11 +14,13 @@ import IconButton from 'material-ui/IconButton';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
+import {Link} from 'react-router';
+
 import {
   cyan500, cyan700,
   pinkA200,
   grey100, grey300, grey400, grey500,
-  white, darkBlack, fullBlack,
+  white, darkBlack, fullBlack, teal500
 } from 'material-ui/styles/colors';
 import {fade} from 'material-ui/utils/colorManipulator';
 
@@ -30,7 +32,7 @@ const muiTheme = {
   spacing: spacing,
   fontFamily: 'Roboto, sanc-serif',
   palette: {
-    primary1Color: white,
+    primary1Color: teal500,
     primary2Color: cyan700,
     primary3Color: grey400,
     accent1Color: pinkA200,
@@ -81,10 +83,11 @@ export default class App extends React.Component {
     const logoBlack = require('./logo-black.png');
     return (
        <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
-          <div ref="appScroll">
+          <div>
             <div className={'row ' + styles.app}>
               <AppBar
-                title={<div style={{maxWidth: '190px', marginTop: '10px'}}><img src={logoBlack} style={{display: 'block', maxWidth: '100%', height: 'auto'}}/></div>}
+                style={{background: white}}
+                title={<Link to="/"><div style={{maxWidth: '190px', marginTop: '10px'}}><img src={logoBlack} style={{display: 'block', maxWidth: '100%', height: 'auto'}}/></div></Link>}
                 iconElementLeft={<IconButton className={'hide-on-large-only'} onTouchTap={this.menuOpen}><NavigationMenu/></IconButton>}
                 iconElementRight={<RightMenuComponent/>}
               />

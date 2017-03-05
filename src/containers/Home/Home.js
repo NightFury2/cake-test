@@ -15,7 +15,6 @@ const dataSourceConfig = {
 
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
-    console.log('loading');
     const promises = [];
 
     if (!isLoadCities(getState())) {
@@ -46,28 +45,43 @@ export default class Home extends React.Component {
       searchText: searchText,
     });
   };
-  handleNewRequest = () => {
-    this.setState({
-      searchText: '',
-    });
+  handleClickCity = () => {
+    if (this.state.searchText.length !== 0) {
+      this.props.pushState(`/Alle/${this.state.searchText}`);
+    }
   };
   render() {
+    const styleSass = require('./Home.scss');
     return (
-      <div className="col s12" style={{marginTop: '60px'}}>
+      <div className="col s12">
         <div className="container">
-          <h1>Skredderbakte kaker fra lokale bakere</h1>
-          <AutoComplete
-            floatingLabelText="Same text, different values"
-            searchText={this.state.searchText}
-            onUpdateInput={this.handleUpdateInput}
-            onNewRequest={this.handleNewRequest}
-            filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
-            openOnFocus
-            dataSource={this.props.data}
-            maxSearchResults={10}
-            dataSourceConfig={dataSourceConfig}
-          />
-          <RaisedButton onTouchTap={() => this.props.pushState(`/cities/${this.state.searchText}`)} label={'SØK'}/>
+          <div className="row">
+            <div className="col s12">
+              <h1>Skredderbakte kaker fra lokale bakere</h1>
+              <AutoComplete
+                className={styleSass.inputs}
+                floatingLabelText="Same text, different values"
+                searchText={this.state.searchText}
+                onUpdateInput={this.handleUpdateInput}
+                onNewRequest={searchText => this.handleClickCity(searchText)}
+                filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
+                openOnFocus
+                dataSource={this.props.data}
+                maxSearchResults={10}
+                dataSourceConfig={dataSourceConfig}
+              />
+              <RaisedButton onTouchTap={this.handleClickCity} label={'SØK'}/>
+            </div>
+            <div className="col s12" style={{marginTop: '30px'}}>
+              <div className="row" style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap'}}>
+                {this.props.data &&
+                  this.props.data.map((item, index) => {
+                    return <div style={{margin: '5px'}} key={index}><RaisedButton onTouchTap={() => {this.props.pushState(`/Alle/${item.name}`);}} label={item.name}/></div>;
+                  })
+                }
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

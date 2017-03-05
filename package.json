@@ -42,7 +42,7 @@
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
-        "APIHOST": "www.cakeiteasy.no"
+        "PORT": 8000
       }
     },
     "start-dev": {
@@ -50,8 +50,7 @@
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "development",
-        "PORT": 3000,
-        "APIHOST": "www.cakeiteasy.no"
+        "PORT": 3000
       }
     },
     "watch-client": {
@@ -59,8 +58,7 @@
       "env": {
         "UV_THREADPOOL_SIZE": 100,
         "NODE_PATH": "./src",
-        "PORT": 3000,
-        "APIPORT": 3030
+        "PORT": 3000
       }
     },
     "build": {
@@ -86,6 +84,7 @@
     "body-parser": "^1.14.1",
     "compression": "^1.6.0",
     "express": "^4.13.3",
+    "express-http-proxy": "^0.11.0",
     "express-session": "^1.12.1",
     "file-loader": "^0.8.5",
     "fs": "0.0.1-security",
@@ -96,6 +95,7 @@
     "invariant": "^2.2.0",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
+    "lodash": "^4.17.4",
     "lru-memoize": "^1.0.0",
     "map-props": "^1.0.0",
     "material-ui": "^0.16.7",
@@ -106,6 +106,7 @@
     "react": "^15.4.2",
     "react-bootstrap": "^0.28.1",
     "react-dom": "^15.4.2",
+    "react-dropzone": "^3.11.0",
     "react-helmet": "^2.2.0",
     "react-inline-css": "^2.0.0",
     "react-parallax": "^1.2.2",
