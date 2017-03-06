@@ -18,7 +18,8 @@ export default class CakeActionFooter extends React.Component {
   static propTypes = {
     card: React.PropTypes.object,
     count: React.PropTypes.number.isRequired,
-    cake: React.PropTypes.array.isRequired,
+    cake: React.PropTypes.object.isRequired,
+    setCakeDefault: React.PropTypes.func.isRequired,
     setCakeCount: React.PropTypes.func.isRequired,
     isActiveStep: React.PropTypes.bool.isRequired
   };
@@ -36,9 +37,9 @@ export default class CakeActionFooter extends React.Component {
               <div className="row">
                 <List>
                   <Subheader> Price List:</Subheader>
-                  <ListItem style={{background: teal500}} primaryText={this.props.cake.bakery.name} rightIcon={<IconButton><DeleteIcon/></IconButton>}/>
+                  <ListItem style={{background: teal500}} disabled primaryText={this.props.cake.bakery.name} rightIconButton={<IconButton onTouchTap={this.props.setCakeDefault}><DeleteIcon/></IconButton>}/>
                   <Divider/>
-                  <ListItem style={{background: 'white', color: teal500}} primaryText={this.props.cake.name}/>
+                  <ListItem style={{background: 'white', color: teal500}} primaryText={`${this.props.cake.name}      - ${this.props.count} count`}/>
                   <Divider/>
                   {this.props.card.cakeSizeId !== 0 && this.props.card.cakeFillingId &&
                     <div>
@@ -49,7 +50,7 @@ export default class CakeActionFooter extends React.Component {
                       <Divider/>
                     </div>
                   }
-                  <ListItem style={{background: 'white', color: teal500}} primaryText={`price: ${this.calcPrice(this.props.card.count, this.props.card.cakeMotivePrice.price, this.props.card.cakeTextPrice.price, filterPriceByCakeSizeAndFillings.price)}`}/>
+                  <ListItem style={{background: 'white', color: teal500}} primaryText={`price: ${this.calcPrice(this.props.card.count, this.props.card.cakeMotivePrice.price, this.props.card.cakeTextPrice.price, filterPriceByCakeSizeAndFillings !== undefined ? filterPriceByCakeSizeAndFillings.price : 0)}`}/>
                 </List>
               </div>
             </div>
@@ -59,13 +60,13 @@ export default class CakeActionFooter extends React.Component {
                   <span>Velg antall: </span>
                   <div>
                     {this.props.count > 1 &&
-                      <IconButton onTouchTap={this.props.setCakeCount(this.props.count - 1)}>
+                      <IconButton onTouchTap={() => this.props.setCakeCount(this.props.count - 1)}>
                         <RemoveIcon/>
                       </IconButton>
                     }
                     <span>{this.props.count}</span>
                     {this.props.count < 100 &&
-                      <IconButton onTouchTap={this.props.setCakeCount(this.props.count + 1)}>
+                      <IconButton onTouchTap={() => this.props.setCakeCount(this.props.count + 1)}>
                         <AddIcon/>
                       </IconButton>
                     }

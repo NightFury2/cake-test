@@ -7,6 +7,7 @@ import CakeHasMotive from './CakeHasMotive/CakeHasMotive';
 import CakeHasText from './CakeHasText/CakeHasText';
 import MessageBekery from './MessageBekery/MessageBekery';
 import CakeActionFooter from './CakeActionFooter/CakeActionFooter';
+import CakeExtensions from './CakeExtensions/CakeExtensions';
 
 import {Card, CardMedia, CardText, CardHeader, CardActions} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
@@ -23,6 +24,7 @@ export default class CakeView extends React.Component {
     cakeSizeId: React.PropTypes.number,
     cakeFillingId: React.PropTypes.number,
     step: React.PropTypes.object,
+    setCakeDefault: React.PropTypes.func.isRequired,
     count: React.PropTypes.number.isRequired,
     setCakeCount: React.PropTypes.func.isRequired,
     messageBakery: React.PropTypes.object.isRequired,
@@ -57,7 +59,7 @@ export default class CakeView extends React.Component {
                   <CardText>{this.props.cake.description}</CardText>
                   <CardActions>
                     <FlatButton labelStyle={{color: cyan500}} label="ingredienser"/>
-                    <FlatButton labelStyle={{color: cyan500}} label="Bestillingsfrist"/>
+                    <FlatButton labelStyle={{color: cyan500}} className="right" label="Bestillingsfrist"/>
                   </CardActions>
                 </CardText>
               </div>
@@ -111,27 +113,40 @@ export default class CakeView extends React.Component {
               <CardText>
                 <CakeHasText cakeHasText={this.props.step.cakeHasText}
                              textPrice={this.props.cake.textPrice}
+                             cakeTextPrice={this.props.card.cakeTextPrice}
                              setCakeTextPrice={this.props.setCakeTextPrice}
                              isActiveStep={this.props.cakeSizeId > 0 && this.props.cakeFillingId > 0}
                 />
               </CardText>
             </div>
           }
+          {this.props.cake.cakeExtensions && this.props.cakeSizeId > 0 && this.props.cakeFillingId > 0 &&
+            <CakeExtensions cakeExtensions={this.props.cake.cakeExtensions}
+                            cakeSizeId={this.props.cakeSizeId}
+                            cakeFillingId={this.props.cakeFillingId}
+                            isActiveStep={this.props.cakeSizeId > 0 && this.props.cakeFillingId > 0}
+            />
+          }
           <Divider/>
-            <CardText>
-              <MessageBekery messageBakery={this.props.messageBakery}
-                             setCakeMessageBakery={this.props.setCakeMessageBakery}
-                             isActiveStep={this.props.cakeSizeId > 0 && this.props.cakeFillingId > 0}
-              />
-            </CardText>
-          <Divider/>
-            <CardText>
-              <CakeActionFooter count={this.props.count}
-                                cake={this.props.cake}
-                                card={this.props.card}
-                                setCakeCount={this.props.setCakeCount}
-                                isActiveStep={this.props.cakeSizeId > 0 && this.props.cakeFillingId > 0}/>
-            </CardText>
+          <CardText>
+            <MessageBekery messageBakery={this.props.messageBakery}
+                           setCakeMessageBakery={this.props.setCakeMessageBakery}
+                           isActiveStep={this.props.cakeSizeId > 0 && this.props.cakeFillingId > 0}
+            />
+          </CardText>
+          {this.props.cake &&
+            <div>
+              <Divider/>
+              <CardText>
+                <CakeActionFooter count={this.props.count}
+                                  cake={this.props.cake}
+                                  card={this.props.card}
+                                  setCakeDefault={this.props.setCakeDefault}
+                                  setCakeCount={this.props.setCakeCount}
+                                  isActiveStep={this.props.cakeSizeId > 0 && this.props.cakeFillingId > 0}/>
+              </CardText>
+            </div>
+          }
         </Card>
       </div>
     );

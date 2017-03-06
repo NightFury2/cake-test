@@ -1,3 +1,7 @@
+.buildConteiner {
+  position: relative;
+  transition: opacity 0.5s, transform 0.5s;
+}
 .inputCakeFilling {
   input[type="radio"]:checked {
     label {

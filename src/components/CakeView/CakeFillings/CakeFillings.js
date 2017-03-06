@@ -17,8 +17,8 @@ export default class CakeFillings extends React.Component {
     cakeFillings: React.PropTypes.array,
     isActiveStep: React.PropTypes.bool.isRequired,
     cakeFillingStep: React.PropTypes.bool.isRequired,
-    cakeSizeId: React.PropTypes.number,
-    cakeFillingId: React.PropTypes.number,
+    cakeSizeId: React.PropTypes.number.isRequired,
+    cakeFillingId: React.PropTypes.number.isRequired,
     cakePrices: React.PropTypes.array,
     setCakeFillingStep: React.PropTypes.func.isRequired,
     setCakeFillingId: React.PropTypes.func.isRequired,
@@ -38,13 +38,16 @@ export default class CakeFillings extends React.Component {
   };
   render() {
     const activeStepFilling = this.props.isActiveStep ? '' : '0.3';
+    const styles = require('./CakeFillings.scss');
     const priceByCakeSizeId = this.filterPriceByCakeSizeId(this.props.cakePrices, this.props.cakeSizeId);
     const fillings = this.filterFillingsByPrice(priceByCakeSizeId, this.props.cakeFillings);
     const defaultFilling = fillings.length > 0 ? fillings.filter(item => {return item.isDefault !== false;}) : [];
     const cakeFillings = fillings.length > 0 ? [...defaultFilling, ...fillings] : this.props.cakeFillings;
+    const isDIsableContent = this.props.isActiveStep ? 'none' : 'block';
     return (
-      <div className="row" style={{opacity: activeStepFilling}}>
-        <div className="col s12">
+      <section className={'row ' + styles.buildConteiner} style={{opacity: activeStepFilling}}>
+        <div style={{position: 'absolute', left: 0, top: 0, bottom: 0, right: 0, display: isDIsableContent, zIndex: 5}}/>
+        <div className="col s12" style={{transform: 'translateY(25px)'}}>
           <div className="row">
             <div className="col s12 l5">
               <Title isActive={this.props.cakeFillingStep} name="Velg smak/fyll"/>
@@ -76,7 +79,7 @@ export default class CakeFillings extends React.Component {
             </div>
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 }

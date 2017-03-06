@@ -4,7 +4,7 @@ import CakeView from '../../components/CakeView/CakeView';
 
 import {loadCake} from '../../redux/modules/cakes';
 import {
-  setCakeSizeId, setCakeFillingId, setCakeMotivePrice, setCakeTextPrice, setCakeMessageBakery,
+  setCakeSizeId, setCakeFillingId, setCakeMotivePrice, setCakeTextPrice, setCakeMessageBakery, setCakeDefault,
   setCakeFillingStep, setCakeSizeStep, setCakeMotiveStep, setCakeTextStep, setCakeCount
 } from '../../redux/modules/card';
 import {connect} from 'react-redux';
@@ -25,7 +25,7 @@ import {push} from 'react-router-redux';
     card: state.card,
     step: state.card.step
   }), {
-    loadCake, setCakeSizeId, setCakeFillingId, setCakeMotivePrice, setCakeTextPrice, setCakeCount,
+    loadCake, setCakeSizeId, setCakeFillingId, setCakeMotivePrice, setCakeTextPrice, setCakeCount, setCakeDefault,
     setCakeFillingStep, setCakeMotiveStep, setCakeTextStep, setCakeSizeStep, setCakeMessageBakery, pushState: push
   })
 export default class Cake extends React.Component {
@@ -47,6 +47,7 @@ export default class Cake extends React.Component {
     cakeSizeId: React.PropTypes.number,
     cakeFillingId: React.PropTypes.number,
     step: React.PropTypes.object,
+    setCakeDefault: React.PropTypes.func.isRequired,
     messageBakery: React.PropTypes.object.isRequired,
     setCakeMessageBakery: React.PropTypes.func.isRequired,
     setCakeSizeId: React.PropTypes.func.isRequired,
@@ -82,6 +83,7 @@ export default class Cake extends React.Component {
                       cake={this.props.cake}
                       count={this.props.count}
                       card={this.props.card}
+                      setCakeDefault={this.props.setCakeDefault}
                       setCakeCount={this.props.setCakeCount}
                       setCakeSizeId={this.props.setCakeSizeId}
                       setCakeFillingId={this.props.setCakeFillingId}

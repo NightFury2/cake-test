@@ -1,4 +1,7 @@
 // Id
+const ADD_CAKE_INFO_TO_PRICE = 'ADD_CAKE_INFO_TO_PRICE';
+
+
 const SET_CAKE_SIZE_ID = 'SET_CAKE_SIZE_ID';
 const SET_CAKE_FILLING_ID = 'SET_CAKE_FILLING_ID';
 const SET_CAKE_MOTIVE_PRICE = 'SET_CAKE_MOTIVE_PRICE';
@@ -6,6 +9,7 @@ const SET_CAKE_TEXT_PRICE = 'SET_CAKE_TEXT_PRICE';
 const SET_CAKE_EXTRA_PRICE = 'SET_CAKE_EXTRA_PRICE';
 const SET_CAKE_MESSAGE_BAKERY = 'SET_CAKE_MESSAGE_BAKERY';
 const SET_CAKE_COUNT = 'SET_CAKE_COUNT';
+const SET_CAKE_DEFAULT = 'SET_CAKE_DEFAULT';
 // Step
 const SET_CAKE_SIZE_STEP = 'SET_CAKE_SIZE_STEP';
 const SET_CAKE_FILLING_STEP = 'SET_CAKE_FILLING_STEP';
@@ -16,6 +20,7 @@ const initialState = {
   cakeSizeId: 0,
   cakeFillingId: 0,
   count: 1,
+  listCakePrice: [],
   cakeMotivePrice: {
     files: [],
     price: 0
@@ -25,6 +30,8 @@ const initialState = {
     price: 0
   },
   extraFillPrice: {
+    cakeExtensionId: 0,
+    name: '',
     price: 0
   },
   messageBakery: {
@@ -40,6 +47,23 @@ const initialState = {
 
 export default function cakes(state = initialState, action = {}) {
   switch (action.type) {
+    case SET_CAKE_DEFAULT:
+      return {
+        ...state,
+        cakeSizeId: initialState.cakeSizeId,
+        cakeFillingId: initialState.cakeFillingId,
+        count: initialState.count,
+        cakeMotivePrice: initialState.cakeMotivePrice,
+        cakeTextPrice: initialState.cakeTextPrice,
+        extraFillPrice: initialState.extraFillPrice,
+        messageBakery: initialState.messageBakery,
+        step: initialState.step
+      };
+    case ADD_CAKE_INFO_TO_PRICE:
+      return {
+        ...state,
+        listCakePrice: action.listCakePrice
+      };
     // set Id
     case SET_CAKE_SIZE_ID:
       return {
@@ -118,6 +142,15 @@ export function setCakeSizeId(cakeSizeId) {
   return {type: SET_CAKE_SIZE_ID, cakeSizeId};
 }
 
+export function setCakeDefault() {
+  return {type: SET_CAKE_DEFAULT};
+}
+
+export function addToListCakePrice(listCakePrices, cakeInfo) {
+  const listCakePrice = listCakePrices.push(cakeInfo);
+  return {type: SET_CAKE_DEFAULT,  listCakePrice};
+}
+
 export function setCakeFillingId(cakeFillingId) {
   return {type: SET_CAKE_FILLING_ID, cakeFillingId};
 }
@@ -129,13 +162,13 @@ export function setCakeExtaFillPrice(extraFillPrice) {
   return {type: SET_CAKE_EXTRA_PRICE, extraFillPrice};
 }
 export function setCakeCount(count) {
-  return {type: SET_CAKE_EXTRA_PRICE, count};
+  return {type: SET_CAKE_COUNT, count};
 }
 export function setCakeMessageBakery(messageBakery) {
   return {type: SET_CAKE_MESSAGE_BAKERY, messageBakery};
 }
-export function setCakeTextPrice(cakeTexBytPrice) {
-  const cakeTextPrice = cakeTexBytPrice.text.length > 0 ? cakeTexBytPrice : {text: '', price: 0};
+export function setCakeTextPrice(cakeTexBytPrice, price) {
+  const cakeTextPrice = cakeTexBytPrice.length > 0 ? {text: cakeTexBytPrice, price: price} : {text: '', price: 0};
   return {type: SET_CAKE_TEXT_PRICE, cakeTextPrice};
 }
 // steps
